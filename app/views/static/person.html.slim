@@ -1,0 +1,21 @@
+.dashboard-wrapper
+  aside.side-bar-area
+    .friends-list
+      p.friends-list-header FRIENDS
+      - @users.each do |user|
+        = link_to("/people/#{user.id}") do 
+          .friend-name #{user.name}
+  .main-area
+    .top-bar
+      h1.top-bar-title #{@person.name}
+    .expenses-list
+      - @person_expenses.each do |expense|
+        .expense-item
+          .item-lhs
+            p #{expense.incurred_at.strftime("%b %d")}
+            p #{expense.description}
+          .item-rhs
+            .you-details
+              p amount paid
+              p $#{expense.total_amount}
+          = link_to '❌', expense_path(expense.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'button.remove-btn'
